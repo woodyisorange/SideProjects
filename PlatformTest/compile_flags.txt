@@ -1,0 +1,8 @@
+-std=c11
+-Wall
+-Wextra
+-Werror
+-fno-exceptions
+--include-directory=.
+--include-directory=..
+-lX11

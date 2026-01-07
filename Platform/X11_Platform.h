@@ -1,11 +1,15 @@
 #ifndef X11_PLATFORM_GUARD
 #define X11_PLATFORM_GUARD
 
+#include <Platform/X11_Types.h>
+
 typedef struct
 {
-    int WindowWidth;
-    int WindowHeight;
+    int32 WindowWidth;
+    int32 WindowHeight;
 } platform_parameters;
+
+void Platform_ProcessCommonArguments(int32 ArgumentCount, const char** Arguments, platform_parameters* Parameters);
 
 void Platform_MainLoop(platform_parameters* Parameters);
 
@@ -13,12 +17,29 @@ void Platform_MainLoop(platform_parameters* Parameters);
 
 #ifdef X11_PLATFORM_IMPLEMENTATION
 
+#include <Utilities/Strings.h>
+
 #include <X11/Xlib.h>
 #include <unistd.h>
 
 int main(int ArgumentCount, const char** Arguments)
 {
     Game_MainEntry(ArgumentCount, Arguments);
+}
+
+void Platform_ProcessCommonArguments(int32 ArgumentCount, const char** Arguments, platform_parameters* Parameters)
+{
+    for (int32 Index = 0; Index < ArgumentCount; ++Index)
+    {
+        if (Util_StringCompare(Arguments[Index], "-width") == 0 && (Index+1) < ArgumentCount)
+        {
+            Util_ParseInt32(Arguments[Index+1], &Parameters->WindowWidth);
+        }
+        else if (__builtin_strcmp(Arguments[Index], "-height") == 0 && (Index+1) < ArgumentCount)
+        {
+            Util_ParseInt32(Arguments[Index+1], &Parameters->WindowHeight);
+        }
+    }
 }
 
 void Platform_MainLoop(platform_parameters* Parameters)
@@ -37,5 +58,5 @@ void Platform_MainLoop(platform_parameters* Parameters)
     }
 }
 
-#endif // X11_PLATFORM_IMPLEMENT
+#endif // X11_PLATFORM_IMPLEMENTATION
 

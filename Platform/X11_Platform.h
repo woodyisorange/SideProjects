@@ -55,6 +55,10 @@ void Platform_MainLoop(platform_parameters* Parameters)
     XMapWindow(MainDisplay, MainWindow);
     XFlush(MainDisplay);
 
+    //TODO: Detect window closing and exit
+    //TODO: Pass delta time to Game_Tick()
+    //TODO: Capture input
+    //TODO: Pass a backbuffer texture to draw to
     while (1)
     {
         Game_Tick();

@@ -34,3 +34,6 @@ typedef uint8 bool8;
 #define TRUE 1
 #define FALSE 0
 
+typedef char utf8;
+static_assert(sizeof(utf8) == 1, "Bad width");
+

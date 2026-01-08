@@ -1,6 +1,6 @@
 #include <Platform/X11_Platform.h>
 
-void Game_MainEntry(int ArgumentCount, const char** Arguments)
+void Game_MainEntry(int ArgumentCount, const utf8** Arguments)
 {
     platform_parameters PlatformParameters;
     PlatformParameters.WindowWidth = 800;

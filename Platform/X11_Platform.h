@@ -9,9 +9,11 @@ typedef struct
     int32 WindowHeight;
 } platform_parameters;
 
-void Platform_ProcessCommonArguments(int32 ArgumentCount, const char** Arguments, platform_parameters* Parameters);
+void Platform_ProcessCommonArguments(int32 ArgumentCount, const utf8** Arguments, platform_parameters* Parameters);
 
 void Platform_MainLoop(platform_parameters* Parameters);
+
+void Platform_Sleep(int32 Microseconds);
 
 #endif // X11_PLATFORM_GUARD
 
@@ -27,7 +29,7 @@ int main(int ArgumentCount, const char** Arguments)
     Game_MainEntry(ArgumentCount, Arguments);
 }
 
-void Platform_ProcessCommonArguments(int32 ArgumentCount, const char** Arguments, platform_parameters* Parameters)
+void Platform_ProcessCommonArguments(int32 ArgumentCount, const utf8** Arguments, platform_parameters* Parameters)
 {
     for (int32 Index = 0; Index < ArgumentCount; ++Index)
     {
@@ -54,8 +56,13 @@ void Platform_MainLoop(platform_parameters* Parameters)
     while (1)
     {
         Game_Tick();
-        sleep(0);
+        Platform_Sleep(0);
     }
+}
+
+void Platform_Sleep(int32 Microseconds)
+{
+    usleep(Microseconds);
 }
 
 #endif // X11_PLATFORM_IMPLEMENTATION

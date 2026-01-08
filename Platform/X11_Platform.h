@@ -21,8 +21,10 @@ void Platform_Sleep(int32 Microseconds);
 
 #include <Utilities/Strings.h>
 
+#define _POSIX_C_SOURCE 199309L
 #include <X11/Xlib.h>
 #include <unistd.h>
+#include <time.h>
 
 int main(int ArgumentCount, const char** Arguments)
 {
@@ -62,7 +64,11 @@ void Platform_MainLoop(platform_parameters* Parameters)
 
 void Platform_Sleep(int32 Microseconds)
 {
-    usleep(Microseconds);
+    struct timespec TimeSpec;
+    TimeSpec.tv_nsec = Microseconds * 1000;
+
+    //TODO: Properly handle remainder, maybe use clock_nanosleep()?
+    nanosleep(&TimeSpec, NULL);
 }
 
 #endif // X11_PLATFORM_IMPLEMENTATION

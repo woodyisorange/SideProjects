@@ -1,4 +1,4 @@
 .PHONY: debug
 
 debug:
-	clang --config=../compile_flags.txt -o PlatformTest.elf PlatformTest.c -lX11
+	clang --config=../compile_flags.txt -g -o PlatformTest.elf PlatformTest.c -lX11

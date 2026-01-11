@@ -2,6 +2,25 @@
 
 #include <Platform/X11_Types.h>
 
+// Includes null terminator
+int64 Util_StringLengthBytes(const utf8* String)
+{
+    if (String == NULL)
+    {
+        return 0;
+    }
+
+    //TODO: Go wide
+    const utf8* Tail = String;
+    while ((*Tail) != '\0')
+    {
+        ++Tail;
+    }
+
+    int64 Length = (Tail - String) + 1;
+    return Length;
+}
+
 int32 Util_StringCompare(const utf8* StringA, const utf8* StringB)
 {
     if (!StringA && !StringB)
@@ -19,6 +38,7 @@ int32 Util_StringCompare(const utf8* StringA, const utf8* StringB)
         return -1;
     }
 
+    // TODO: Go wide
     while (TRUE)
     {
         int32 Delta = (*StringA) - (*StringB);
